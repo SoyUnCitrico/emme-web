@@ -4,6 +4,7 @@ import { useFrame } from '@react-three/fiber';
 import { useSpring, animated } from '@react-spring/three'
 import { Vector3, Mesh } from 'three';
 
+
 // Componente de partícula
 const Particle = ({ position, color }: { position: Vector3; color: number }) => {
   const meshRef = useRef<Mesh>();
@@ -59,7 +60,7 @@ const ParticleSystem = ({ headPosition, color = 0xffaa00 }: { headPosition: Vect
 interface GuitarModelProps {
   exploded?: boolean;
 }
-
+useGLTF.preload('/models/guitarraBoy.gltf')
 const GuitarModel = ({ exploded = false }: GuitarModelProps) => {
   const group = useRef<any>();
   const { nodes, materials } = useGLTF('/models/guitarraBoy.gltf');
