@@ -80,7 +80,7 @@ const About = () => {
                 </svg>
               </div>
               <div>
-                <h4 className="font-medium">+5 años</h4>
+                <h4 className="font-medium">+4 años</h4>
                 <p className="text-sm text-gray-500">Experiencia</p>
               </div>
             </div>
@@ -92,7 +92,7 @@ const About = () => {
                 </svg>
               </div>
               <div>
-                <h4 className="font-medium">+30 proyectos</h4>
+                <h4 className="font-medium">+20 proyectos</h4>
                 <p className="text-sm text-gray-500">Completados</p>
               </div>
             </div>

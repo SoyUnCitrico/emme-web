@@ -35,6 +35,7 @@ export default function Footer(): JSX.Element {
   const siteLinks = [
     { id: 'skills', label: 'Habilidades', url: '#skills' },
     { id: 'about', label: 'Acerca de', url: '#about' },
+    { id: 'projects', label: 'Proyectos', url: '#projects' },
     { id: 'media', label: 'Media', url: '#media' },
     { id: 'contact', label: 'Contacto', url: '#contact' },
   ];

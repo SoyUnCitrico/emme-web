@@ -11,9 +11,11 @@ export default function Home() {
   const aboutRef = useRef(null);
   const skillsRef = useRef(null);
   const contactRef = useRef(null);
-  
+  const projectsRef = useRef(null);
+
   const isAboutInView = useInView(aboutRef, { once: true });
   const isSkillsInView = useInView(skillsRef, { once: true });
+  const isProjectsInView = useInView(skillsRef, { once: true });
   const isContactInView = useInView(contactRef, { once: true });
 
   // Animation variants
@@ -70,7 +72,56 @@ export default function Home() {
       >
         <About />
       </motion.section>
-
+      <motion.section 
+        id='projects'
+        ref={projectsRef}
+        variants={sectionVariants}
+        initial="hidden"
+        animate={isProjectsInView ? "visible" : "hidden"}
+        className="py-20 px-4 md:px-20 bg-gray-100"
+      >
+        <h2 className="section-title mb-12">
+          Proyectos
+        </h2>
+        <div  className='flex justify-evenly w-xl m-4 pl-6 pr-6'>          
+          <a href='https://synth-web-tau.vercel.app/'>
+            <motion.button 
+                className="btn-primary mt-4 flex items-center"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}            
+            >
+                Synth React
+            </motion.button>
+          </a>
+          <a href='https://app-genda-front.vercel.app/'>
+            <motion.button 
+                className="btn-primary mt-4 flex items-center"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}            
+            >
+                Synth React
+            </motion.button>
+          </a>
+          <a href='https://fakestore-app-iota.vercel.app/'>
+            <motion.button 
+                className="btn-primary mt-4 flex items-center"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}            
+            >
+                FakeStore
+            </motion.button>
+          </a>
+          <a href='https://emme-beta.vercel.app/'>
+            <motion.button 
+                className="btn-primary mt-4 flex items-center"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}            
+            >
+                Portafolio 2023
+            </motion.button>
+          </a>
+        </div>
+      </motion.section>
       {/* Skills Section */}
       <motion.section
         id='skills'

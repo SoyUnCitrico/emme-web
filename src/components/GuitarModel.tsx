@@ -10,9 +10,9 @@ import { useSpring, animated } from '@react-spring/three';
 const Particle = ({ position, color }: { position: Vector3; color: number }) => {
   const meshRef = useRef<Mesh>();
   const velocity = useMemo(() => new Vector3(
-    (Math.random() - 0.5) * 0.115,
-    (Math.random() - 0.5) * 0.115,
-    (Math.random() - 0.5) * 0.115
+    (Math.random() - 0.5) * 0.215,
+    (Math.random() - 0.5) * 0.215,
+    (Math.random() - 0.5) * 0.215
   ), []);
 
   useFrame(() => {
@@ -47,7 +47,7 @@ const ParticleSystem = ({ originPosition, color = 0x8b1707 }: { originPosition: 
       position: originPosition.clone().add(
         new Vector3(
           (Math.random() - 0.5) * 0.1, // Smaller initial spread
-          (Math.random() - 0.5) * 0.1,
+          ((Math.random() - 0.5) * 0.1) + 2.5,
           (Math.random() - 0.5) * 0.1
         )
       ),
@@ -84,7 +84,7 @@ const GuitarModel = ({ exploded = false }: GuitarModelProps) => {
 
   // --- Referencia para la posición de la explosión ---
   // Usamos useRef para que el Vector3 persista entre renders
-  const explosionOrigin = useRef(new Vector3(0, 1.0, 0)); // Default position
+  const explosionOrigin = useRef(new Vector3(0, 10, 0)); // Default position
 
   // --- Animación de rotación (sin cambios) ---
   const rotationSpring = useSpring({

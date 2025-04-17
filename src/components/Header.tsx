@@ -13,6 +13,7 @@ const Header = ({ activeSection, onSectionChange }: HeaderProps): JSX.Element =>
   // Secciones de navegación
   const navItems = [
     { id: 'about', label: 'Acerca de' },
+    { id: 'projects', label: 'Proyectos' },
     { id: 'skills', label: 'Habilidades' },
     { id: 'contact', label: 'Contacto' },
     { id: 'media', label: 'Media' }

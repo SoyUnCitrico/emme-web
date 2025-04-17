@@ -151,7 +151,7 @@ const AudioWavePlayer = (): JSX.Element => {
 
   
   return (
-    <div className="w-full p-6-4 bg-gray-800 rounded-lg shadow-lg mb-6" >
+    <div className="w-full px-6 py-2 bg-gray-800 rounded-lg shadow-lg mb-6" >
       {/* Audio Element (hidden) */}
       <audio 
         ref={audioRef} 
