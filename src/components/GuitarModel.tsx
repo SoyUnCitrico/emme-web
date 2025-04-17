@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useMemo } from 'react';
 // Import Group from three
-import { Group, Vector3, Mesh, Material } from 'three';
+import { Group, Vector3, Mesh } from 'three';
 import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useSpring, animated } from '@react-spring/three';
@@ -75,7 +75,7 @@ interface GuitarModelProps {
   onExplodeComplete?: () => void; // Optional callback
 }
 
-const GuitarModel = ({ exploded = false, onExplodeComplete }: GuitarModelProps) => {
+const GuitarModel = ({ exploded = false }: GuitarModelProps) => {
   // Use Group type hint for better intellisense
   const group = useRef<Group>(null);
 
@@ -98,7 +98,7 @@ const GuitarModel = ({ exploded = false, onExplodeComplete }: GuitarModelProps) 
 
   // --- Animación de flotación (sin cambios) ---
   const frameCount = useRef(0);
-  useFrame((state, delta) => {
+  useFrame((state) => {
     if (!group.current || exploded) return; // Stop floating when exploded
 
     frameCount.current++;
