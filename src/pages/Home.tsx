@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import ThreeScene from '../components/HeroScene';
+import HeroScene from '../components/HeroScene';
 import AudioWavePlayer from '@/components/AudioPlayer';
 import About from '../components/About';
 import Skills from '../components/Skills';
@@ -26,7 +26,7 @@ export default function Home() {
     <div className="w-full">
       {/* Hero Section with 3D Model */}
       <section className="relative w-full h-screen">
-        <ThreeScene />
+        <HeroScene />
         <button 
           className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
           onClick={() => {

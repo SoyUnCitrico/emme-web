@@ -43,9 +43,9 @@ export default function HeroScene() {
           enablePan 
           enableRotate 
           autoRotate={!headExploded}
-          autoRotateSpeed={0}
-          maxPolarAngle={Math.PI / 2}
-          minPolarAngle={Math.PI / 4}
+          autoRotateSpeed={2}
+          maxPolarAngle={ Math.PI / 2}
+          minPolarAngle={- Math.PI / 2}
         />
 
         <Suspense fallback={null}>
@@ -73,7 +73,7 @@ export default function HeroScene() {
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.8 }}
         >
-          Hola, soy EmmE
+          Explota tus ideas
         </motion.h1>
         <motion.p 
           className="text-xl md:text-2xl max-w-lg"
@@ -81,7 +81,16 @@ export default function HeroScene() {
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.8 }}
         >
-          Desarrollador creativo apasionado por la música y la tecnología
+          Soy un desarrollador creativo apasionado por la música y la tecnología.
+        </motion.p>
+        <br/>
+        <motion.p 
+          className="text-lg md:text-lg max-w-lg"
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.5, duration: 0.8 }}
+        >
+          Yo te ayudo
         </motion.p>
         
         <motion.button
