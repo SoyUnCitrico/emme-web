@@ -97,7 +97,7 @@ const About = () => {
               </div>
             </div>
           </div>
-            <a href='/cv_emme.pdf'>
+            <a href='/cv_Fullstack.pdf'>
             <motion.button 
                 className="btn-primary mt-4 flex items-center"
                 whileHover={{ scale: 1.05 }}
