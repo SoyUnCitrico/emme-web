@@ -40,7 +40,7 @@ const Particle = ({ position, color }: { position: Vector3; color: number }) => 
 // --- Sistema de partículas (sin cambios, pero ajustaremos la posición inicial) ---
 const ParticleSystem = ({ originPosition, color = 0x8b1707 }: { originPosition: Vector3; color?: number }) => {
   const particles = useMemo(() => {
-    console.log("Creating particles around:", originPosition);
+    // console.log("Creating particles around:", originPosition);
     return Array.from({ length: 300 }, (_, i) => ({
       id: i,
       // Start particles AT the origin position, Particle component handles movement
@@ -80,7 +80,7 @@ const GuitarModel = ({ exploded = false }: GuitarModelProps) => {
   const group = useRef<Group>(null);
 
   // --- Cargar el nuevo modelo (SIN ruta Draco) ---
-  const { nodes, materials } = useGLTF('/models/guitarraBoy3.gltf');
+  const { nodes } = useGLTF('/models/guitarraBoy3.gltf');
 
   // --- Referencia para la posición de la explosión ---
   // Usamos useRef para que el Vector3 persista entre renders
@@ -118,7 +118,7 @@ const GuitarModel = ({ exploded = false }: GuitarModelProps) => {
       group.current.position.z = 0;
       group.current.position.x = 0;
     }
-  }, []); // Run only once on mount
+  }, [group]); // Run only once on mount
 
 
   // --- Lógica para obtener la posición de explosión ---
@@ -139,7 +139,7 @@ const GuitarModel = ({ exploded = false }: GuitarModelProps) => {
         // worldPos.y += 0.8; // Ejemplo de ajuste vertical
 
         explosionOrigin.current.copy(worldPos);
-        console.log("Explosion origin set to:", explosionOrigin.current);
+        // console.log("Explosion origin set to:", explosionOrigin.current);
     } else {
         console.warn("guitarraBoy2 node not found for setting explosion origin.");
         // Fallback a la posición del grupo si el nodo no se encuentra
@@ -167,14 +167,14 @@ const GuitarModel = ({ exploded = false }: GuitarModelProps) => {
   const glassesLeftTempleNode = nodes['Glasses_temple-Left_part'];
   const glassesRightTempleNode = nodes['Glasses_temple-Right_part']; // Nombre del NODO, no de la malla
 
-  console.log("Available nodes:", nodes);
-  console.log("Available materials:", materials);
+  // console.log("Available nodes:", nodes);
+  // console.log("Available materials:", materials);
 
   return (
     // Aplicamos la animación de rotación al grupo contenedor
     <animated.group
       ref={group}
-      rotation={rotationSpring.rotation as any} // Cast a 'any' si TypeScript se queja
+      rotation={rotationSpring.rotation} // Cast a 'any' si TypeScript se queja
       // onClick={handleClick} // Opcional: Re-habilitar si necesitas el clic
       dispose={null} // Buena práctica al renderizar nodos de useGLTF directamente
     >
@@ -198,7 +198,6 @@ const GuitarModel = ({ exploded = false }: GuitarModelProps) => {
   );
 };
 
-// --- Pre-carga del modelo (SIN ruta Draco) ---
 useGLTF.preload('/models/guitarraBoy3.gltf');
 
 export default GuitarModel;

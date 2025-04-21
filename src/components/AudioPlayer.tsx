@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Play, Pause, SkipBack, SkipForward, Volume2 } from 'lucide-react';
 // Definición de tipos
 // interface AudioEvent extends Event {
@@ -58,15 +58,13 @@ const AudioWavePlayer = (): JSX.Element => {
   }, [audioRef]);
 
   // Actualizar el progreso de la reproducción
-  const updateProgress = (): void => {
+  const updateProgress = useCallback((): void => {
     if (audioRef.current) {
       const currentSeconds = audioRef.current.currentTime;
       setCurrentTime(currentSeconds);
       animationRef.current = requestAnimationFrame(updateProgress);
     }
-  };
-
-
+  }, []);
 
   // Controlar reproducción
   useEffect(() => {
@@ -76,7 +74,7 @@ const AudioWavePlayer = (): JSX.Element => {
           console.error("Error al reproducir audio:", error);
           setIsPlaying(false);
         });
-      animationRef.current = requestAnimationFrame(updateProgress);
+      updateProgress();
     } else {
       audioRef.current?.pause();
       if (animationRef.current) {
@@ -88,7 +86,7 @@ const AudioWavePlayer = (): JSX.Element => {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [isPlaying]);
+  }, [isPlaying, updateProgress]);
 
   // Formatear tiempo en mm:ss
   const formatTime = (time: number): string => {

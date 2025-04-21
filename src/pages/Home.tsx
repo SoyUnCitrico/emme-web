@@ -33,7 +33,7 @@ export default function Home() {
           className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
           onClick={() => {
             if(aboutRef.current !== null) {       
-              // @ts-ignore       
+              // @ts-expect-error No detecta objetos del DOM en referencia     
               aboutRef.current.scrollIntoView( { behavior: 'smooth' } )
             }
          }}
@@ -83,7 +83,7 @@ export default function Home() {
         <h2 className="section-title mb-12">
           Proyectos
         </h2>
-        <div  className='flex justify-evenly w-xl m-4 pl-6 pr-6'>          
+        <div  className='flex flex-col lg:flex-row items-center lg:justify-evenly w-xl m-4 pl-6 pr-6'>          
           <a href='https://synth-web-tau.vercel.app/'>
             <motion.button 
                 className="btn-primary mt-4 flex items-center"
@@ -99,7 +99,7 @@ export default function Home() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}            
             >
-                Synth React
+                App Genda
             </motion.button>
           </a>
           <a href='https://fakestore-app-iota.vercel.app/'>
