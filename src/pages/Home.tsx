@@ -1,4 +1,6 @@
-import { useRef } from 'react';
+import { useRef, Suspense } from 'react';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 import HeroScene from '../components/HeroScene';
 import AudioWavePlayer from '@/components/AudioPlayer';
 import About from '../components/About';
@@ -24,132 +26,155 @@ export default function Home() {
     visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
   };
   
-  return (
-    <div className="w-full">
-      {/* Hero Section with 3D Model */}
-      <section className="relative w-full h-screen">
-        <HeroScene />
-        <button 
-          className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
-          onClick={() => {
-            if(aboutRef.current !== null) {       
-              // @ts-expect-error No detecta objetos del DOM en referencia     
-              aboutRef.current.scrollIntoView( { behavior: 'smooth' } )
-            }
-         }}
-        >
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 2, duration: 1.5 }}
-            className="animate-bounce"
-          >
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              width="24" 
-              height="24" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeWidth="2" 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              className="text-white"
+  return (<>
+    <Header />
+    <div className="flex flex-col min-h-screen">      
+      <main className="flex-grow">
+        <Suspense fallback={
+          <div className="flex items-center justify-center h-screen">
+            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-white"></div>
+          </div>
+        }>
+          <div className="w-full">
+            {/* Hero Section with 3D Model */}
+            <section className="relative w-full h-screen">
+              <HeroScene />
+              <button 
+                className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+                onClick={() => {
+                  if(aboutRef.current !== null) {       
+                    // @ts-expect-error No detecta objetos del DOM en referencia     
+                    aboutRef.current.scrollIntoView( { behavior: 'smooth' } )
+                  }
+              }}
+              >
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 2, duration: 1.5 }}
+                  className="animate-bounce"
+                >
+                  <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    width="24" 
+                    height="24" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    className="text-white"
+                  >
+                    <path d="M12 5v14M5 12l7 7 7-7"/>
+                  </svg>
+                </motion.div>
+              </button>
+            </section>
+            {/* About Section */}
+            <motion.section 
+              id='about'
+              ref={aboutRef}
+              variants={sectionVariants}
+              initial="hidden"
+              animate={isAboutInView ? "visible" : "hidden"}
+              className="py-20 px-4 md:px-20 bg-gray-100"
             >
-              <path d="M12 5v14M5 12l7 7 7-7"/>
-            </svg>
-          </motion.div>
-        </button>
-      </section>
-      {/* About Section */}
-      <motion.section 
-        id='about'
-        ref={aboutRef}
-        variants={sectionVariants}
-        initial="hidden"
-        animate={isAboutInView ? "visible" : "hidden"}
-        className="py-20 px-4 md:px-20 bg-gray-100"
-      >
-        <About />
-      </motion.section>
-      <motion.section 
-        id='projects'
-        ref={projectsRef}
-        variants={sectionVariants}
-        initial="hidden"
-        animate={isProjectsInView ? "visible" : "hidden"}
-        className="py-20 px-4 md:px-20 bg-gray-100"
-      >
-        <h2 className="section-title mb-12">
-          Proyectos
-        </h2>
-        <div  className='flex flex-col lg:flex-row items-center lg:justify-evenly w-xl m-4 pl-6 pr-6'>          
-          <a href='https://synth-web-tau.vercel.app/'>
-            <motion.button 
-                className="btn-primary mt-4 flex items-center"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}            
+              <About />
+            </motion.section>
+            <motion.section 
+              id='projects'
+              ref={projectsRef}
+              variants={sectionVariants}
+              initial="hidden"
+              animate={isProjectsInView ? "visible" : "hidden"}
+              className="py-20 px-4 md:px-20 bg-gray-100"
             >
-                Synth React
-            </motion.button>
-          </a>
-          <a href='https://app-genda-front.vercel.app/'>
-            <motion.button 
-                className="btn-primary mt-4 flex items-center"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}            
+              <h2 className="section-title mb-12">
+                Proyectos
+              </h2>
+              <div  className='flex flex-col lg:flex-row items-center lg:justify-evenly w-xl m-4 pl-6 pr-6'>          
+                <a href='https://synth-web-tau.vercel.app/'>
+                  <motion.button 
+                      className="btn-primary mt-4 flex items-center"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}            
+                  >
+                      Synth React
+                  </motion.button>
+                </a>
+                <a href='https://app-genda-front.vercel.app/'>
+                  <motion.button 
+                      className="btn-primary mt-4 flex items-center"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}            
+                  >
+                      App Genda
+                  </motion.button>
+                </a>
+                <a href='https://fakestore-app-iota.vercel.app/'>
+                  <motion.button 
+                      className="btn-primary mt-4 flex items-center"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}            
+                  >
+                      FakeStore
+                  </motion.button>
+                </a>
+                <a href='https://emme-beta.vercel.app/'>
+                  <motion.button 
+                      className="btn-primary mt-4 flex items-center"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}            
+                  >
+                      Portafolio 2023
+                  </motion.button>
+                </a>
+                <a href='https://ccdtecno.github.io//'>
+                  <motion.button 
+                      className="btn-primary mt-4 flex items-center"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}            
+                  >
+                      CCDTecno
+                  </motion.button>
+                </a>
+              </div>
+            </motion.section>
+            {/* Skills Section */}
+            <motion.section
+              id='skills'
+              ref={skillsRef}
+              variants={sectionVariants}
+              initial="hidden"
+              animate={isSkillsInView ? "visible" : "hidden"}
+              className="py-20 px-4 md:px-20 bg-white"
             >
-                App Genda
-            </motion.button>
-          </a>
-          <a href='https://fakestore-app-iota.vercel.app/'>
-            <motion.button 
-                className="btn-primary mt-4 flex items-center"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}            
-            >
-                FakeStore
-            </motion.button>
-          </a>
-          <a href='https://emme-beta.vercel.app/'>
-            <motion.button 
-                className="btn-primary mt-4 flex items-center"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}            
-            >
-                Portafolio 2023
-            </motion.button>
-          </a>
-        </div>
-      </motion.section>
-      {/* Skills Section */}
-      <motion.section
-        id='skills'
-        ref={skillsRef}
-        variants={sectionVariants}
-        initial="hidden"
-        animate={isSkillsInView ? "visible" : "hidden"}
-        className="py-20 px-4 md:px-20 bg-white"
-      >
-        <Skills />
-      </motion.section>
+              <Skills />
+            </motion.section>
 
-      {/* Contact Section */}
-      <motion.section 
-        id='contact'
-        ref={contactRef}
-        variants={sectionVariants}
-        initial="hidden"
-        animate={isContactInView ? "visible" : "hidden"}
-        className="py-20 px-4 md:px-20 bg-gray-100"
-      >
-        <Contact />
-      </motion.section>
+            {/* Contact Section */}
+            <motion.section 
+              id='contact'
+              ref={contactRef}
+              variants={sectionVariants}
+              initial="hidden"
+              animate={isContactInView ? "visible" : "hidden"}
+              className="py-20 px-4 md:px-20 bg-gray-100"
+            >
+              <Contact />
+            </motion.section>
 
-      
-      <section id='media' className='bg-gray-100 md:p-8 sm:p-4'>
-        <AudioWavePlayer />
-      </section> 
+            
+            <section id='media' className='bg-gray-100 md:p-8 sm:p-4'>
+              <AudioWavePlayer />
+            </section> 
+          </div>
+        
+          </Suspense>
+      </main>
+      <Footer />
     </div>
+    </>
   );
 }

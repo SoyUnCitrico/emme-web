@@ -31,10 +31,11 @@ const router = createBrowserRouter(
 function Root() {
   return (
     <Routes>
-      <Route element={<Layout />} />
-      <Route path="/" element={<Home />} />
-      {/* <Route path="/projects" element={<Projects />} /> */}
-      {/* <Route path="/projects/:id" element={<ProjectDetail />} /> */}
+      <Route element={<Layout />} >
+        <Route path="/" element={<Home />} />
+        {/* <Route path="/projects" element={<Projects />} /> */}
+        {/* <Route path="/projects/:id" element={<ProjectDetail />} /> */}
+      </Route>
     </Routes>          
   );
 }
@@ -61,5 +62,10 @@ function Layout() {
 }
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  return <RouterProvider 
+    router={router} 
+    future={{
+      v7_startTransition: true,
+    }}
+  />;
 }
