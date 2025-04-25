@@ -1,4 +1,4 @@
-import { useRef, Suspense } from 'react';
+import { useRef, Suspense, useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import HeroScene from '../components/HeroScene';
@@ -7,6 +7,7 @@ import About from '../components/About';
 import Skills from '../components/Skills';
 import Contact from '../components/Contact';
 import { motion, useInView } from 'framer-motion';
+import LoadingSpinner from '@/components/Loader/Spinner';
 
 
 export default function Home() {
@@ -14,7 +15,7 @@ export default function Home() {
   const skillsRef = useRef(null);
   const contactRef = useRef(null);
   const projectsRef = useRef(null);
-
+  const[loading, setLoading] = useState(true)
   const isAboutInView = useInView(aboutRef, { once: true });
   const isSkillsInView = useInView(skillsRef, { once: true });
   const isProjectsInView = useInView(skillsRef, { once: true });
@@ -26,21 +27,29 @@ export default function Home() {
     visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
   };
   
+  useEffect(() => {
+    setTimeout(() => {      
+      setLoading(false)
+    }, 1100)
+  },[])
+
   return (<>
     <Header />
     <div className="flex flex-col min-h-screen">      
       <main className="flex-grow">
         <Suspense fallback={
-          <div className="flex items-center justify-center h-screen">
+          <div className="flex items-center justify-center h-screen">            
             <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-white"></div>
           </div>
         }>
           <div className="w-full">
-            {/* Hero Section with 3D Model */}
             <section className="relative w-full h-screen">
-              <HeroScene />
+              {!!!loading ?
+                <HeroScene /> : <LoadingSpinner />
+              }
               <button 
                 className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+                title="Acerca de mi"
                 onClick={() => {
                   if(aboutRef.current !== null) {       
                     // @ts-expect-error No detecta objetos del DOM en referencia     
@@ -71,6 +80,10 @@ export default function Home() {
                 </motion.div>
               </button>
             </section>
+          </div>
+        </Suspense>
+      </main>
+      <div className="w-full">
             {/* About Section */}
             <motion.section 
               id='about'
@@ -98,7 +111,8 @@ export default function Home() {
                   <motion.button 
                       className="btn-primary mt-4 flex items-center"
                       whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}            
+                      whileTap={{ scale: 0.95 }}       
+                      title="Proyectos"     
                   >
                       Synth React
                   </motion.button>
@@ -107,7 +121,8 @@ export default function Home() {
                   <motion.button 
                       className="btn-primary mt-4 flex items-center"
                       whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}            
+                      whileTap={{ scale: 0.95 }}
+                      title="AppGenda"      
                   >
                       App Genda
                   </motion.button>
@@ -116,7 +131,8 @@ export default function Home() {
                   <motion.button 
                       className="btn-primary mt-4 flex items-center"
                       whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}            
+                      whileTap={{ scale: 0.95 }}
+                      title="Fake Store"      
                   >
                       FakeStore
                   </motion.button>
@@ -125,7 +141,8 @@ export default function Home() {
                   <motion.button 
                       className="btn-primary mt-4 flex items-center"
                       whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}            
+                      whileTap={{ scale: 0.95 }}
+                      title="Protafolio antiguo"        
                   >
                       Portafolio 2023
                   </motion.button>
@@ -134,7 +151,8 @@ export default function Home() {
                   <motion.button 
                       className="btn-primary mt-4 flex items-center"
                       whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}            
+                      whileTap={{ scale: 0.95 }}
+                      title="Galería CCDTecno"         
                   >
                       CCDTecno
                   </motion.button>
@@ -169,10 +187,7 @@ export default function Home() {
             <section id='media' className='bg-gray-100 md:p-8 sm:p-4'>
               <AudioWavePlayer />
             </section> 
-          </div>
-        
-          </Suspense>
-      </main>
+      </div>
       <Footer />
     </div>
     </>

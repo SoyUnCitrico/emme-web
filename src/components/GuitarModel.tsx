@@ -1,26 +1,27 @@
-import React, { useRef, useEffect, useMemo } from 'react';
+import React, { useRef, useEffect, useMemo, useState } from 'react';
 // Import Group from three
 import { Group, Vector3, Mesh } from 'three';
 import { useGLTF } from '@react-three/drei';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useLoader } from '@react-three/fiber';
 import { useSpring, animated } from '@react-spring/three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 
 // --- Componente Particle (sin cambios) ---
 const Particle = ({ position, color }: { position: Vector3; color: number }) => {
   const meshRef = useRef<Mesh>();
   const velocity = useMemo(() => new Vector3(
-    (Math.random() - 0.5) * 0.215,
-    (Math.random() - 0.5) * 0.215,
-    (Math.random() - 0.5) * 0.215
+    (Math.random() - 0.5) * 0.315,
+    (Math.random() - 0.5) * 0.315,
+    (Math.random() - 0.5) * 0.315
   ), []);
 
   useFrame(() => {
     if (meshRef.current) {
       meshRef.current.position.add(velocity);
       velocity.y -= 0.0005; // Gravity
-      // Optional: Fade out or shrink particles
-      // meshRef.current.material.opacity *= 0.98;
+      // Optional: Fade out or shrink particles    
+      // meshRef.current.material.opacity *= 0.95;
       // meshRef.current.material.transparent = true;
       meshRef.current.scale.multiplyScalar(0.985); // Shrink
       if (meshRef.current.scale.x < 0.01) {
@@ -41,7 +42,7 @@ const Particle = ({ position, color }: { position: Vector3; color: number }) => 
 const ParticleSystem = ({ originPosition, color = 0x8b1707 }: { originPosition: Vector3; color?: number }) => {
   const particles = useMemo(() => {
     // console.log("Creating particles around:", originPosition);
-    return Array.from({ length: 300 }, (_, i) => ({
+    return Array.from({ length: 350 }, (_, i) => ({
       id: i,
       // Start particles AT the origin position, Particle component handles movement
       position: originPosition.clone().add(
@@ -69,18 +70,20 @@ const ParticleSystem = ({ originPosition, color = 0x8b1707 }: { originPosition: 
   );
 };
 
-
 interface GuitarModelProps {
   exploded?: boolean;
   onExplodeComplete?: () => void; // Optional callback
 }
-
+ 
 const GuitarModel = ({ exploded = false }: GuitarModelProps) => {
   // Use Group type hint for better intellisense
   const group = useRef<Group>(null);
-
+  const urlModel = '/models/guitarraBoy3.gltf'
+  const gltf = useLoader(GLTFLoader, urlModel)
+  const [loading2, setLoading2] = useState(true)
   // --- Cargar el nuevo modelo (SIN ruta Draco) ---
-  const { nodes } = useGLTF('/models/guitarraBoy3.gltf');
+  // const { nodes } = useGLTF(urlModel)
+
 
   // --- Referencia para la posición de la explosión ---
   // Usamos useRef para que el Vector3 persista entre renders
@@ -125,7 +128,7 @@ const GuitarModel = ({ exploded = false }: GuitarModelProps) => {
   // Hacemos esto en un useEffect que dependa de `nodes` para asegurar que el nodo existe
   useEffect(() => {
     // Usaremos el nodo principal 'guitarraBoy2' como origen
-    const targetNode = nodes.guitarraBoy2 as Mesh;
+    const targetNode = gltf.nodes.guitarraBoy2 as Mesh;
     if (targetNode && group.current) {
         // Es importante obtener la posición MUNDIAL DESPUÉS de que el grupo padre
         // haya sido posicionado/escalado, aunque aquí la posición inicial es 0,0,0
@@ -145,8 +148,9 @@ const GuitarModel = ({ exploded = false }: GuitarModelProps) => {
         // Fallback a la posición del grupo si el nodo no se encuentra
         group.current?.getWorldPosition(explosionOrigin.current);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nodes]); // Depende de que los nodos se carguen
+    // console.log("gltf")
+    setLoading2(false)
+  }, [gltf, loading2]); // Depende de que los nodos se carguen
 
   // --- Función de clic (No es necesaria si la explosión se controla por props) ---
   // const handleClick = () => {
@@ -162,39 +166,39 @@ const GuitarModel = ({ exploded = false }: GuitarModelProps) => {
   // `useGLTF` ya les ha aplicado sus transformaciones y materiales (si existen)
 
   // Extraemos los nombres de los nodos para claridad (¡cuidado con los guiones!)
-  const guitarBodyNode = nodes.guitarraBoy2;
-  const glassesFrontNode = nodes['Glasses-front']; // Usar corchetes para nombres con '-'
-  const glassesLeftTempleNode = nodes['Glasses_temple-Left_part'];
-  const glassesRightTempleNode = nodes['Glasses_temple-Right_part']; // Nombre del NODO, no de la malla
-
-  // console.log("Available nodes:", nodes);
-  // console.log("Available materials:", materials);
-
+  const guitarBodyNode = gltf?.nodes['guitarraBoy2'];
+  const glassesFrontNode = gltf?.nodes['Glasses-front']; 
+  const glassesLeftTempleNode = gltf?.nodes['Glasses_temple-Left_part'];
+  const glassesRightTempleNode = gltf?.nodes['Glasses_temple-Right_part'];  
+  // console.log(loading2)
   return (
     // Aplicamos la animación de rotación al grupo contenedor
-    <animated.group
-      ref={group}
-      rotation={rotationSpring.rotation} // Cast a 'any' si TypeScript se queja
-      // onClick={handleClick} // Opcional: Re-habilitar si necesitas el clic
-      dispose={null} // Buena práctica al renderizar nodos de useGLTF directamente
-    >
-      {/* Renderizar el modelo SÓLO si NO está explotado */}
-      {!exploded && (
-        <>
-          {/* Usamos <primitive object={...} /> para renderizar los nodos */}
-          {/* Three.js/Drei se encargan de la geometría, material, posición, etc. */}
-          {guitarBodyNode && <primitive object={guitarBodyNode} />}
-          {glassesFrontNode && <primitive object={glassesFrontNode} />}
-          {glassesLeftTempleNode && <primitive object={glassesLeftTempleNode} />}
-          {glassesRightTempleNode && <primitive object={glassesRightTempleNode} />}
-        </>
-      )}
+    <>      
+      <animated.group
+        ref={group}
+        rotation={rotationSpring.rotation} // Cast a 'any' si TypeScript se queja
+        // onClick={handleClick} // Opcional: Re-habilitar si necesitas el clic
+        dispose={null} // Buena práctica al renderizar nodos de useGLTF directamente
+      >
+        {/* Renderizar el modelo SÓLO si NO está explotado */}
+        
+        {!exploded && loading2 === false && (
+          <>
+            {/* Usamos <primitive object={...} /> para renderizar los nodos */}
+            {/* Three.js/Drei se encargan de la geometría, material, posición, etc. */}
+            {guitarBodyNode && <primitive object={guitarBodyNode} />}
+            {glassesFrontNode && <primitive object={glassesFrontNode} />}
+            {glassesLeftTempleNode && <primitive object={glassesLeftTempleNode} />}
+            {glassesRightTempleNode && <primitive object={glassesRightTempleNode} />}
+          </>
+        )}
 
-      {/* Renderizar el sistema de partículas SÓLO si ESTÁ explotado */}
-      {/* Pasamos la posición de origen calculada */}
-      {exploded && <ParticleSystem originPosition={explosionOrigin.current} />}
+        {/* Renderizar el sistema de partículas SÓLO si ESTÁ explotado */}
+        {/* Pasamos la posición de origen calculada */}
+        {exploded && <ParticleSystem originPosition={explosionOrigin.current} />}
 
-    </animated.group>
+      </animated.group>
+    </>
   );
 };
 

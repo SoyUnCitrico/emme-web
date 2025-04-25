@@ -101,6 +101,7 @@ const Header = ({ activeSection, onSectionChange }: HeaderProps): JSX.Element =>
               className="text-gray-300 hover:text-white focus:outline-none"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
+              title="Arbir / Cerrar menu"
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>

@@ -187,6 +187,7 @@ const AudioWavePlayer = (): JSX.Element => {
             onClick={skipBackward}
             className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 text-white transition-all"
             aria-label="Retroceder 10 segundos"
+            title="Atrasar"
           >
             <SkipBack size={24} />
           </button>
@@ -195,6 +196,7 @@ const AudioWavePlayer = (): JSX.Element => {
             onClick={togglePlayPause}
             className="p-4 rounded-full bg-purple-600 hover:bg-purple-500 text-white transition-all"
             aria-label={isPlaying ? "Pausar" : "Reproducir"}
+            title="Pausa / Reproducir"
           >
             {isPlaying ? <Pause size={24} /> : <Play size={24} />}
           </button>
@@ -203,6 +205,7 @@ const AudioWavePlayer = (): JSX.Element => {
             onClick={skipForward}
             className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 text-white transition-all"
             aria-label="Avanzar 10 segundos"
+            title="Avanzar"
           >
             <SkipForward size={24} />
           </button>

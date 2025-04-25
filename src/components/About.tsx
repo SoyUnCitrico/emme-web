@@ -101,7 +101,8 @@ const About = () => {
             <motion.button 
                 className="btn-primary mt-4 flex items-center"
                 whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}            
+                whileTap={{ scale: 0.95 }}
+                title="Descargar curriculum"
             >
                 Descargar CV
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">

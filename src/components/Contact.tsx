@@ -272,6 +272,7 @@ export default function Contact() {
                 className="btn-primary w-full flex items-center justify-center"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
+                title="Enviar mensaje"
               >
                 {isSubmitting ? (
                   <>
