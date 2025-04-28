@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy } from 'react';
 // import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {
   createBrowserRouter,
@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import Header from './components/Header';
 import Footer from './components/Footer';
+// import Home from './pages/Home';
 
 // Lazy loading pages for better performance
 const Home = lazy(() => import('./pages/Home'));
@@ -46,13 +47,13 @@ function Layout() {
     <div className="flex flex-col min-h-screen">
       <Header />
       <main className="flex-grow">
-        <Suspense fallback={
+        {/* <Suspense fallback={
           <div className="flex items-center justify-center h-screen">
             <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-white"></div>
           </div>
-        }>
+        }> */}
           <Outlet />
-        </Suspense>
+        {/* </Suspense> */}
       </main>
       <Footer />
     </div>

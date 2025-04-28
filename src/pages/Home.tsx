@@ -1,4 +1,4 @@
-import { useRef, Suspense, useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import HeroScene from '../components/HeroScene';
@@ -30,24 +30,28 @@ export default function Home() {
   useEffect(() => {
     setTimeout(() => {      
       setLoading(false)
-    }, 300)
+    }, 500)
   },[])
 
   return (<>
     <Header />
     <div className="flex flex-col min-h-screen">      
       <main className="flex-grow">
-        <Suspense fallback={
+        {/* <Suspense fallback={
           <div className="flex items-center justify-center h-screen">            
             <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-white"></div>
           </div>
-        }>
+        }> */}
           <div className="w-full">
             <section className="relative w-full h-screen">
               {!!!loading ?
                 <HeroScene /> : <LoadingSpinner />
               }
-              <button 
+              
+            </section>
+          </div>
+        {/* </Suspense> */}
+        <button 
                 className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
                 title="Acerca de mi"
                 onClick={() => {
@@ -79,9 +83,6 @@ export default function Home() {
                   </svg>
                 </motion.div>
               </button>
-            </section>
-          </div>
-        </Suspense>
       </main>
       <div className="w-full">
             {/* About Section */}

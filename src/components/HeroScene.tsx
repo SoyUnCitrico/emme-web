@@ -3,13 +3,15 @@ import { Suspense, lazy, useState, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera, Environment, ContactShadows } from '@react-three/drei';
 import { motion } from 'framer-motion';
+import { Html } from '@react-three/drei';
+// import GuitarModel from './GuitarModel';
 
 // Lazy loading del componente 3D con caché
 const GuitarModel = lazy(() => import('./GuitarModel'));
 
 export default function HeroScene() {
   const [isMobile, setIsMobile] = useState(false);
-  const [headExploded, setHeadExploded] = useState(true);
+  const [headExploded, setHeadExploded] = useState(false);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -29,39 +31,50 @@ export default function HeroScene() {
       transition={{ duration: 1.5 }}
     >
       <Canvas shadows className="!absolute inset-0">
-      <PerspectiveCamera makeDefault position={[0, 3.5, 5]} fov={isMobile ? 75 : 50} />
-      
-      {/* Lighting */}
-      <ambientLight intensity={0.5} />
-      <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
-      <spotLight position={[-10, -10, -10]} angle={0.15} penumbra={1} intensity={0.5} />
+        <PerspectiveCamera makeDefault position={[0, 3.5, 5]} fov={isMobile ? 75 : 50} />
+        
+        {/* Lighting */}
+        <ambientLight intensity={0.5} />
+        <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
+        <spotLight position={[-10, -10, -10]} angle={0.15} penumbra={1} intensity={0.5} />
 
-      {/* Environment and Controls */}
-      <Environment preset="city" />
-      <OrbitControls 
-        // enableZoom 
-        // enablePan 
-        // enableRotate 
-        autoRotate={!headExploded}
-        autoRotateSpeed={2}
-        maxPolarAngle={ Math.PI / 2}
-        minPolarAngle={- Math.PI / 2}
-      />
+        {/* Environment and Controls */}
+        <Environment preset="city" />
+        <OrbitControls 
+          // enableZoom 
+          // enablePan 
+          // enableRotate 
+          autoRotate={!headExploded}
+          autoRotateSpeed={2}
+          maxPolarAngle={ Math.PI / 2}
+          minPolarAngle={- Math.PI / 2}
+        />
 
-      <Suspense fallback={null}>
-        <GuitarModel 
-          exploded={headExploded}
-        />
-        <ContactShadows 
-          opacity={0.6} 
-          scale={10} 
-          blur={2.5} 
-          far={4} 
-          resolution={256} 
-          color="#000000" 
-        />
-      </Suspense>
-    </Canvas>
+        <Suspense fallback={
+          <Html>
+            <motion.button
+              className='rounded-full bg-red-800 text-white p-2'
+              onClick={() => {
+                setHeadExploded(!headExploded)
+              }}
+            >
+              RESET
+            </motion.button>
+          </Html>
+        }>
+          <GuitarModel 
+            exploded={headExploded}
+          />
+          <ContactShadows 
+            opacity={0.6} 
+            scale={10} 
+            blur={2.5} 
+            far={4} 
+            resolution={256} 
+            color="#000000" 
+          />
+        </Suspense>
+      </Canvas>
       <div className="absolute inset-0 z-0 flex flex-col items-center justify-center text-center text-white p-4">
         {/* ... rest of the UI components ... */}
         {/* <div cla}ssName="grid grid-cols-3 justify-center">  */}
@@ -93,11 +106,11 @@ export default function HeroScene() {
         </motion.p>
         
         <motion.button
-          className={`${headExploded ? 'mt-8 px-6 py-2 bg-red-600 text-purple-900 rounded-full text-lg font-medium hover:bg-opacity-90 transition-all' : 'mt-8 px-6 py-2 bg-blue-700 text-white rounded-full text-lg font-medium hover:bg-opacity-90 transition-all'}`}
+          className={`${headExploded ? 'mt-8 px-6 py-2 bg-red-600 text-white-900 rounded-full text-lg font-medium hover:bg-opacity-90 transition-all' : 'mt-8 px-6 py-2 bg-purple-700 text-white rounded-full text-lg font-medium hover:bg-opacity-90 transition-all'}`}
           onClick={() => setHeadExploded(!headExploded)}
           title="Resetea el modelo"
         >
-          {headExploded ? 'RESET' : '💥'}
+          {headExploded ? '↺' : '💥'}
         </motion.button>
       </div>
     </motion.div>
