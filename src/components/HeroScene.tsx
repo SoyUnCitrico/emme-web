@@ -9,7 +9,7 @@ const GuitarModel = lazy(() => import('./GuitarModel'));
 
 export default function HeroScene() {
   const [isMobile, setIsMobile] = useState(false);
-  const [headExploded, setHeadExploded] = useState(false);
+  const [headExploded, setHeadExploded] = useState(true);
 
   useEffect(() => {
     const checkMobile = () => {
