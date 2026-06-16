@@ -74,28 +74,3 @@ VITE_APP_EMAILJS_PUBLIC_KEY
 ## Despliegue
 
 Vercel (build `npm run build` → `dist/`).
-
----
-
-## Mensaje de commit (últimos cambios)
-
-```
-feat(hero): cargar modelos 3D optimizados desde S3 (GLB + Draco) y pipeline de assets
-
-Migra la escena del hero de un loader OBJ+MTL+PNG a GLB comprimido con Draco
-servido desde S3, reduciendo los assets de ~300 MB a ~0.1 MB por modelo.
-
-- Model.tsx: reemplaza useObjModel (OBJLoader/MTLLoader) por useGLTF; descompresión
-  Draco automática. Añade normalización de tamaño/centrado para los 4 modelos
-  (guitarrista y mascara únicos; mazorca y milpa instanciados) y preload de la caché.
-- sceneObjects.ts: activa LOAD_MODELS = true.
-- scripts/build-models.ps1: pipeline en PowerShell (ASCII puro, sin dependencia de
-  bash/WSL) que decima→GLB+Draco y comprime/embebe la textura. Robusto ante los
-  nombres de export de Meshy.ai: localiza la textura real, genera un .mtl limpio y
-  corrige el mtllib del .obj. Auto-localiza magick aunque no esté en el PATH.
-
-Sin cambios necesarios en el resto de la escena (cámara, instancing, explosión y
-placeholders generativos quedan intactos gracias a la capa de formato en Model.tsx).
-
-Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
-```
