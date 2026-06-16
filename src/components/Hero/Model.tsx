@@ -9,11 +9,11 @@ import {
   type BufferGeometry,
   type Material,
 } from 'three';
-import { S3_BASE, sceneObjects, type Transform } from './sceneObjects';
+import { S3_BASE, sceneObjects, sceneConfig, type Transform } from './sceneObjects';
 
 // Models are normalized so their largest dimension ~= this many world units,
-// regardless of the source OBJ's arbitrary scale.
-const TARGET_SIZE = 1.6;
+// regardless of the source OBJ's arbitrary scale. Configurable from sceneConfig.
+const TARGET_SIZE = sceneConfig.baseSize;
 
 const urlFor = (name: string) => `${S3_BASE}/${name}/${name}.glb`;
 
