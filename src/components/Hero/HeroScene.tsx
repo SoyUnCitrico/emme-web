@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import MatrixRain from './MatrixRain';
 import CursorParticles from './CursorParticles';
 import VhsOverlay from './VhsOverlay';
+import { useAudio } from '@/hooks/useAudio';
 
 // Code-split the heavy 3D scene so the hero shell paints immediately.
 const SpaceScene = lazy(() => import('./SpaceScene'));
@@ -22,6 +23,7 @@ function SceneLoader() {
 export default function HeroScene() {
   const [isMobile, setIsMobile] = useState(false);
   const [exploded, setExploded] = useState(false);
+  const { start } = useAudio();
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -36,8 +38,11 @@ export default function HeroScene() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1.5 }}
-      onClick={() => setExploded((v) => !v)}
-      title="Click para detonar / reiniciar"
+      onClick={() => {
+        start(); // primer click: arranca la canción (idempotente); luego se controla desde el header
+        setExploded((v) => !v);
+      }}
+      title="Click para detonar / reiniciar y reproducir audio"
     >
       {/* Digital-rain backdrop (hero only) */}
       <MatrixRain />

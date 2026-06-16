@@ -12,7 +12,7 @@ const projects = [
   { url: 'https://synth-web-tau.vercel.app/', label: 'Synth React' },
   { url: 'https://micel10.vercel.app/', label: 'MICEL_10' },
   { url: 'https://fakestore-app-iota.vercel.app/', label: 'FakeStore' },
-  { url: 'https://app-genda-front.vercel.app/', label: 'App Genda' },
+  { url: 'https://soyuncitrico.github.io/p5-postales/loop/index.html', label: 'P5 Postales' },
   { url: 'https://ccdtecno.github.io//', label: 'CCDTecno' },
 ];
 

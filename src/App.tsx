@@ -1,5 +1,6 @@
 import { lazy, Suspense, type ReactElement } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { AudioProvider } from './hooks/useAudio';
 
 // Lazy loading pages for better performance
 const Home = lazy(() => import('./pages/Home'));
@@ -33,11 +34,13 @@ const router = createBrowserRouter(
 
 export default function App() {
   return (
-    <RouterProvider
-      router={router}
-      future={{
-        v7_startTransition: true,
-      }}
-    />
+    <AudioProvider>
+      <RouterProvider
+        router={router}
+        future={{
+          v7_startTransition: true,
+        }}
+      />
+    </AudioProvider>
   );
 }

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Play, Pause, Volume2 } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { navItems, useSiteNav, type NavItem } from '@/hooks/useSiteNav';
+import { useAudio } from '@/hooks/useAudio';
 const logoSrc = 'https://amazons3-images-micel10.s3.us-east-2.amazonaws.com/images/emmeLogo.png';
 const logotipoSrc = 'https://amazons3-images-micel10.s3.us-east-2.amazonaws.com/images/logotipoSombra.png';
 const Header = (): JSX.Element => {
@@ -10,6 +11,7 @@ const Header = (): JSX.Element => {
   const navigate = useNavigate();
   const location = useLocation();
   const { go, isActive, href } = useSiteNav();
+  const { isPlaying, toggle, volume, setVolume } = useAudio();
   
   // Detectar scroll para cambiar la apariencia del header
   useEffect(() => {
@@ -59,6 +61,29 @@ const Header = (): JSX.Element => {
               {/* <span className="font-bold text-xl tracking-widest">EmmE</span> */}
               <img src={logotipoSrc} alt="Logotipo" className="h-6 w-auto opacity-50 pl-2" />
             </a>
+          </div>
+
+          {/* Controles de audio (misma instancia que el reproductor) */}
+          <div className="flex items-center gap-2 md:gap-3">
+            <button
+              onClick={toggle}
+              className="text-matrix-green hover:text-neon-orange transition-colors"
+              aria-label={isPlaying ? 'Pausar audio' : 'Reproducir audio'}
+              title={isPlaying ? 'Pausar audio' : 'Reproducir audio'}
+            >
+              {isPlaying ? <Pause size={20} /> : <Play size={20} />}
+            </button>
+            <Volume2 size={16} className="hidden sm:block text-matrix-dim" />
+            <input
+              type="range"
+              min={0}
+              max={1}
+              step={0.01}
+              value={volume}
+              onChange={(e) => setVolume(parseFloat(e.target.value))}
+              className="hidden sm:block w-16 md:w-20 accent-neon-orange cursor-pointer"
+              aria-label="Volumen"
+            />
           </div>
 
           {/* Navegación Desktop */}
