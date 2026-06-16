@@ -86,45 +86,45 @@ export default function Contact() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="bg-gradient-to-br from-purple-800 to-indigo-900 rounded-2xl p-8 text-white"
+          className="bg-gradient-to-br from-matrix-panel to-matrix-black border border-matrix-line rounded-2xl p-8 text-matrix-text"
         >
-          <h3 className="text-2xl font-bold mb-6">Información de Contacto</h3>
+          <h3 className="text-2xl font-bold mb-6 text-matrix-green uppercase tracking-wide">Información de Contacto</h3>
           
           <div className="space-y-6">
             <div className="flex items-start">
-              <div className="bg-white/20 p-3 rounded-full mr-4">
+              <div className="bg-matrix-line p-3 rounded-full mr-4 text-neon-orange">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
               </div>
               <div>
-                <h4 className="font-medium text-white/90">Email</h4>
-                <p className="text-white/70">emme.arto@gmail.com</p>
+                <h4 className="font-medium text-matrix-green">Email</h4>
+                <p className="text-matrix-dim">emme.arto@gmail.com</p>
               </div>
             </div>
             
             <div className="flex items-start">
-              <div className="bg-white/20 p-3 rounded-full mr-4">
+              <div className="bg-matrix-line p-3 rounded-full mr-4 text-neon-orange">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
               </div>
               <div>
-                <h4 className="font-medium text-white/90">Teléfono</h4>
-                <p className="text-white/70">(+52) 55 28 97 46 59</p>
+                <h4 className="font-medium text-matrix-green">Teléfono</h4>
+                <p className="text-matrix-dim">(+52) 55 28 97 46 59</p>
               </div>
             </div>
             
             <div className="flex items-start">
-              <div className="bg-white/20 p-3 rounded-full mr-4">
+              <div className="bg-matrix-line p-3 rounded-full mr-4 text-neon-orange">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
               </div>
               <div>
-                <h4 className="font-medium text-white/90">Ubicación</h4>
-                <p className="text-white/70">CDMX, México</p>
+                <h4 className="font-medium text-matrix-green">Ubicación</h4>
+                <p className="text-matrix-dim">CDMX, México</p>
               </div>
             </div>
           </div>
@@ -138,7 +138,7 @@ export default function Contact() {
                 href="https://github.com/soyuncitrico" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="bg-white/20 p-3 rounded-full hover:bg-white/30 transition-colors"
+                className="bg-matrix-line p-3 rounded-full text-matrix-green hover:text-neon-orange hover:shadow-glow-orange transition-all"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
@@ -152,7 +152,7 @@ export default function Contact() {
                 href="https://www.linkedin.com/in/emme-arto/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="bg-white/20 p-3 rounded-full hover:bg-white/30 transition-colors"
+                className="bg-matrix-line p-3 rounded-full text-matrix-green hover:text-neon-orange hover:shadow-glow-orange transition-all"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
@@ -166,7 +166,7 @@ export default function Contact() {
                 href="https://www.instagram.com/soy.emm3" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="bg-white/20 p-3 rounded-full hover:bg-white/30 transition-colors"
+                className="bg-matrix-line p-3 rounded-full text-matrix-green hover:text-neon-orange hover:shadow-glow-orange transition-all"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
@@ -182,15 +182,15 @@ export default function Contact() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <h3 className="text-2xl font-bold text-purple-900 mb-6">Envíame un mensaje</h3>
+          <h3 className="text-2xl font-bold text-matrix-green uppercase tracking-wide mb-6">Envíame un mensaje</h3>
           
           {submitStatus === 'success' ? (
             <motion.div 
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="bg-green-50 border border-green-200 text-green-800 rounded-lg p-6 flex items-center"
+              className="bg-matrix-panel border border-matrix-green text-matrix-green rounded-lg p-6 flex items-center shadow-glow-green"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-3 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-3 text-matrix-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <span>¡Mensaje enviado con éxito! Te responderé lo antes posible.</span>
@@ -199,9 +199,9 @@ export default function Contact() {
             <motion.div 
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="bg-red-50 border border-red-200 text-red-800 rounded-lg p-6 flex items-center"
+              className="bg-matrix-panel border border-neon-ember text-neon-amber rounded-lg p-6 flex items-center"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-3 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-3 text-neon-ember" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <span>{errorMessage}</span>
@@ -210,7 +210,7 @@ export default function Contact() {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="from_name" className="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+                  <label htmlFor="from_name" className="block text-sm font-medium text-matrix-text mb-1">Nombre</label>
                   <input
                     type="text"
                     id="from_name"
@@ -218,13 +218,13 @@ export default function Contact() {
                     value={formData.from_name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                    className="matrix-input"
                     placeholder="Tu nombre"
                   />
                 </div>
                 
                 <div>
-                  <label htmlFor="from_email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                  <label htmlFor="from_email" className="block text-sm font-medium text-matrix-text mb-1">Email</label>
                   <input
                     type="email"
                     id="from_email"
@@ -232,14 +232,14 @@ export default function Contact() {
                     value={formData.from_email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                    className="matrix-input"
                     placeholder="tu.email@ejemplo.com"
                   />
                 </div>
               </div>
               
               <div>
-                <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">Asunto</label>
+                <label htmlFor="title" className="block text-sm font-medium text-matrix-text mb-1">Asunto</label>
                 <input
                   type="text"
                   id="title"
@@ -247,13 +247,13 @@ export default function Contact() {
                   value={formData.title}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                  className="matrix-input"
                   placeholder="¿De qué quieres hablar?"
                 />
               </div>
               
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Mensaje</label>
+                <label htmlFor="message" className="block text-sm font-medium text-matrix-text mb-1">Mensaje</label>
                 <textarea
                   id="message"
                   name="message"
@@ -261,7 +261,7 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   rows={5}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                  className="matrix-input"
                   placeholder="Escribe tu mensaje aquí..."
                 />
               </div>

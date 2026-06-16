@@ -149,7 +149,7 @@ const AudioWavePlayer = (): JSX.Element => {
 
   
   return (
-    <div className="w-full px-6 py-2 bg-gray-800 rounded-lg shadow-lg mb-6" >
+    <div className="w-full px-6 py-2 bg-matrix-panel border border-matrix-line rounded-lg shadow-glow-green mb-6 max-w-2xl mx-auto" >
       {/* Audio Element (hidden) */}
       <audio 
         ref={audioRef} 
@@ -160,24 +160,24 @@ const AudioWavePlayer = (): JSX.Element => {
       
       {/* Título y artista */}
       <div className="mb-6 text-center">
-        <h2 className="text-2xl font-bold text-white">Lagunas</h2>
-        <p className="text-gray-400">Corridos Versionados</p>
+        <h2 className="text-2xl font-bold text-matrix-green uppercase tracking-wide">Lagunas</h2>
+        <p className="text-matrix-dim">Corridos Versionados</p>
       </div>
       
       
       {/* Barra de progreso */}
       <div className="w-full flex items-center gap-2 mb-6">
-        <span className="text-gray-400 text-sm w-12">{formatTime(currentTime)}</span>
+        <span className="text-matrix-dim text-sm w-12">{formatTime(currentTime)}</span>
         <input 
           type="range" 
-          className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+          className="w-full h-2 bg-matrix-line rounded-lg appearance-none cursor-pointer"
           min="0"
           max={duration || 0}
           step="1"
           value={currentTime}
           onChange={handleProgressChange}
         />
-        <span className="text-gray-400 text-sm w-12">{formatTime(duration)}</span>
+        <span className="text-matrix-dim text-sm w-12">{formatTime(duration)}</span>
       </div>
       
       {/* Controles */}
@@ -185,7 +185,7 @@ const AudioWavePlayer = (): JSX.Element => {
         <div className="flex gap-5">
           <button 
             onClick={skipBackward}
-            className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 text-white transition-all"
+            className="p-2 rounded-full border border-matrix-line text-matrix-green hover:text-neon-orange hover:border-neon-orange transition-all"
             aria-label="Retroceder 10 segundos"
             title="Atrasar"
           >
@@ -194,7 +194,7 @@ const AudioWavePlayer = (): JSX.Element => {
           
           <button 
             onClick={togglePlayPause}
-            className="p-4 rounded-full bg-purple-600 hover:bg-purple-500 text-white transition-all"
+            className="p-4 rounded-full bg-neon-orange text-matrix-black hover:shadow-glow-orange transition-all"
             aria-label={isPlaying ? "Pausar" : "Reproducir"}
             title="Pausa / Reproducir"
           >
@@ -203,7 +203,7 @@ const AudioWavePlayer = (): JSX.Element => {
           
           <button 
             onClick={skipForward}
-            className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 text-white transition-all"
+            className="p-2 rounded-full border border-matrix-line text-matrix-green hover:text-neon-orange hover:border-neon-orange transition-all"
             aria-label="Avanzar 10 segundos"
             title="Avanzar"
           >
@@ -212,10 +212,10 @@ const AudioWavePlayer = (): JSX.Element => {
         </div>
           {/* Control de volumen */}
         <div className="flex gap-4 justify-content-center pt-8 ">
-          <Volume2 size={20} className="text-gray-400" />
+          <Volume2 size={20} className="text-matrix-dim" />
           <input 
             type="range" 
-            className="w-24 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+            className="w-24 h-2 bg-matrix-line rounded-lg appearance-none cursor-pointer"
             min="0"
             max="1"
             step="0.01"

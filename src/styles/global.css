@@ -4,33 +4,43 @@
 @tailwind utilities;
 
 :root {
-  --primary: #5b21b6;
-  --secondary: #4c1d95;
-  --accent: #7c3aed;
-  --text: #1e293b;
-  --background: #f8fafc;
+  /* Matrix console palette */
+  --bg: #050805;
+  --panel: #0a140d;
+  --line: #143b22;
+  --green: #00ff41;
+  --green-dim: #00b341;
+  --text: #7fffa8;
+  --accent: #ff8c1a;
+  --accent-bright: #ffae42;
 }
 
 html, body {
   margin: 0;
   padding: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Share Tech Mono', ui-monospace, 'Menlo', monospace;
   scroll-behavior: smooth;
   color: var(--text);
-  background-color: var(--background);
+  background-color: var(--bg);
 }
 
 body::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 
 body::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: var(--bg);
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: var(--primary);
+  background-color: var(--green-dim);
   border-radius: 20px;
+  box-shadow: 0 0 8px rgba(0, 255, 65, 0.5);
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
 }
 
 .canvas-container {
@@ -41,16 +51,45 @@ body::-webkit-scrollbar-thumb {
 
 @layer components {
   .btn-primary {
-    @apply px-6 py-2 bg-purple-900 text-white rounded-full text-lg font-medium hover:bg-purple-800 transition-all;
+    @apply px-6 py-2 bg-transparent border border-neon-orange text-neon-orange rounded-md
+           text-lg font-medium tracking-wide uppercase transition-all
+           hover:bg-neon-orange hover:text-matrix-black hover:shadow-glow-orange;
+  }
+
+  .btn-ghost {
+    @apply px-6 py-2 bg-transparent border border-matrix-dim text-matrix-green rounded-md
+           tracking-wide uppercase transition-all
+           hover:border-matrix-green hover:shadow-glow-green;
   }
 
   .section-title {
-    @apply text-3xl md:text-4xl font-bold mb-8 text-center text-purple-900;
+    @apply text-3xl md:text-4xl font-bold mb-8 text-center text-matrix-green uppercase tracking-widest;
+    text-shadow: 0 0 14px rgba(0, 255, 65, 0.5);
+  }
+
+  .panel {
+    @apply bg-matrix-panel border border-matrix-line rounded-lg;
   }
 
   .card {
-    @apply bg-white rounded-lg shadow-md overflow-hidden transition-all hover:shadow-xl p-6;
+    @apply bg-matrix-panel border border-matrix-line rounded-lg overflow-hidden
+           transition-all hover:border-matrix-green hover:shadow-glow-green p-6;
   }
+
+  .matrix-input {
+    @apply w-full px-4 py-3 rounded-md bg-matrix-black border border-matrix-line text-matrix-text
+           placeholder-matrix-dim/60 focus:outline-none focus:border-neon-orange
+           focus:shadow-glow-orange transition;
+  }
+}
+
+/* Text glow helpers */
+.text-glow-green {
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.6);
+}
+
+.text-glow-orange {
+  text-shadow: 0 0 10px rgba(255, 140, 26, 0.7);
 }
 
 /* Animaciones */

@@ -1,6 +1,11 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
+// Block glyphs for the terminal-style progress bars. Both layers are the same
+// length so the monospace columns line up; the fill is clipped by an animated width.
+const BAR_FILL = '█'.repeat(80);
+const BAR_TRACK = '░'.repeat(80);
+
 // Define los tipos para las habilidades
 interface Skill {
   name: string;
@@ -96,24 +101,38 @@ const Skills = () => {
             className="card"
             variants={categoryVariants}
           >
-            <h3 className="text-xl font-bold text-purple-900 mb-4">{category.title}</h3>
+            <h3 className="text-xl font-bold text-matrix-green mb-4 uppercase tracking-wide">{category.title}</h3>
             <div className="space-y-4">
               {category.skills.map((skill, skillIndex) => (
-                <div key={skillIndex} className="skill-item">
+                <div key={skillIndex} className="skill-item font-mono text-sm">
                   <div className="flex justify-between items-center mb-1">
-                    <span className="flex items-center">
-                      <span className="mr-2 text-xl">{skill.icon}</span>
+                    <span className="flex items-center text-matrix-text">
+                      <span className="mr-2 text-base">{skill.icon}</span>
                       {skill.name}
                     </span>
-                    <span className="text-sm text-gray-600">{skill.level}%</span>
+                    <span className={`text-xs ${skill.level >= 90 ? 'text-neon-orange' : 'text-matrix-dim'}`}>
+                      {String(skill.level).padStart(3, ' ')}%
+                    </span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2.5">
-                    <motion.div 
-                      className={`h-2.5 rounded-full ${skill.color}`}
-                      initial={{ width: 0 }}
-                      animate={isInView ? { width: `${skill.level}%` } : { width: 0 }}
-                      transition={{ duration: 1, delay: 0.2 + skillIndex * 0.1 }}
-                    />
+                  {/* Terminal-style progress bar: [██████░░░░] */}
+                  <div className="flex items-center gap-1 leading-none">
+                    <span className="text-matrix-dim">[</span>
+                    <div className="relative flex-1 overflow-hidden">
+                      <div className="whitespace-nowrap text-matrix-line select-none">{BAR_TRACK}</div>
+                      <motion.div
+                        className={`absolute inset-0 overflow-hidden whitespace-nowrap select-none ${
+                          skill.level >= 90
+                            ? 'text-neon-orange text-glow-orange'
+                            : 'text-matrix-green text-glow-green'
+                        }`}
+                        initial={{ width: 0 }}
+                        animate={isInView ? { width: `${skill.level}%` } : { width: 0 }}
+                        transition={{ duration: 1.1, delay: 0.2 + skillIndex * 0.08, ease: 'easeOut' }}
+                      >
+                        {BAR_FILL}
+                      </motion.div>
+                    </div>
+                    <span className="text-matrix-dim">]</span>
                   </div>
                 </div>
               ))}
@@ -129,15 +148,15 @@ const Skills = () => {
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
         transition={{ delay: 0.5, duration: 0.6 }}
       >
-        <h3 className="text-xl font-bold text-purple-900 mb-6">Otras Tecnologías</h3>
+        <h3 className="text-xl font-bold text-matrix-green mb-6 uppercase tracking-wide">Otras Tecnologías</h3>
         <div className="flex flex-wrap justify-center gap-3">
           {[
-            "JavaScript", "SASS", "Tailwind CSS", "Redux", "GraphQL", 
+            "JavaScript", "SASS", "Tailwind CSS", "Redux", "GraphQL",
             "Jest", "Firebase", "AWS", "Docker", "Figma"
           ].map((tech, index) => (
-            <motion.span 
+            <motion.span
               key={index}
-              className="px-4 py-2 bg-gray-100 rounded-full text-gray-800 hover:bg-purple-100 transition-colors"
+              className="px-4 py-2 bg-matrix-panel border border-matrix-line rounded-full text-matrix-text hover:border-neon-orange hover:text-neon-orange transition-colors"
               whileHover={{ scale: 1.05 }}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}

@@ -1,8 +1,10 @@
 import { Github, Instagram, Linkedin, Mail, BrainCircuit } from 'lucide-react';
+import { navItems, useSiteNav } from '@/hooks/useSiteNav';
 
 export default function Footer(): JSX.Element {
   const currentYear = new Date().getFullYear();
-  
+  const { go, href } = useSiteNav();
+
   // Enlaces a redes sociales
   const socialLinks = [
     { 
@@ -31,52 +33,47 @@ export default function Footer(): JSX.Element {
     }
   ];
   
-  // Enlaces a secciones del sitio web
-  const siteLinks = [
-    { id: 'skills', label: 'Habilidades', url: '#skills' },
-    { id: 'about', label: 'Acerca de', url: '#about' },
-    { id: 'projects', label: 'Proyectos', url: '#projects' },
-    { id: 'media', label: 'Media', url: '#media' },
-    { id: 'contact', label: 'Contacto', url: '#contact' },
-  ];
-  
   return (
-    <footer className="bg-gray-900 text-gray-300">
+    <footer className="bg-matrix-black text-matrix-text border-t border-matrix-line">
       {/* Contenido principal del footer */}
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Columna 1: Logo y descripción */}
           <div className="flex flex-col space-y-4">
             <div className="flex items-center space-x-2">
-            <BrainCircuit size={28} className="text-purple-500" />
-              
-              <span className="font-bold text-xl text-white">EmmE</span>
+            <BrainCircuit size={28} className="text-neon-orange" />
+
+              <span className="font-bold text-xl text-matrix-green tracking-widest">EmmE</span>
             </div>
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-matrix-dim">
               Portafolio de proyectos propios a lo largo de la web.
             </p>
           </div>
-          
+
           {/* Columna 2: Enlaces */}
           <div className="mt-8 md:mt-0">
-            <h3 className="text-lg font-semibold text-white mb-4">Enlaces rápidos</h3>
+            <h3 className="text-lg font-semibold text-matrix-green mb-4 uppercase tracking-wide">Enlaces rápidos</h3>
             <ul className="grid grid-cols-2 gap-2">
-              {siteLinks.map((link) => (
-                <li key={link.id}>
-                  <a 
-                    href={link.url} 
-                    className="text-sm text-gray-400 hover:text-purple-400 transition-colors"
+              {navItems.map((item) => (
+                <li key={item.id}>
+                  <a
+                    href={href(item)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      go(item);
+                    }}
+                    className="text-sm text-matrix-dim hover:text-neon-orange transition-colors"
                   >
-                    {link.label}
+                    {item.label}
                   </a>
                 </li>
               ))}
             </ul>
           </div>
-          
+
           {/* Columna 3: Redes sociales */}
           <div className="mt-8 md:mt-0">
-            <h3 className="text-lg font-semibold text-white mb-4">Sígueme</h3>
+            <h3 className="text-lg font-semibold text-matrix-green mb-4 uppercase tracking-wide">Sígueme</h3>
             <div className="flex space-x-4">
               {socialLinks.map((social) => (
                 <a
@@ -84,7 +81,7 @@ export default function Footer(): JSX.Element {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-purple-400 transition-colors"
+                  className="text-matrix-dim hover:text-neon-orange transition-colors"
                   aria-label={social.label}
                 >
                   {social.icon}
@@ -114,14 +111,14 @@ export default function Footer(): JSX.Element {
         </div>
         
         {/* Línea divisoria */}
-        <div className="border-t border-gray-800 mt-8 pt-8">
+        <div className="border-t border-matrix-line mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-matrix-dim">
               &copy; {currentYear} @soyuncitrico. Todos los derechos reservados.
             </p>
             <div className="mt-4 md:mt-0">
-              <p className="text-xs text-gray-500">
-                Diseñado con <span className="text-red-500">❤</span> por Emme
+              <p className="text-xs text-matrix-dim/70">
+                Diseñado con <span className="text-neon-orange">❤</span> por Emme
               </p>
             </div>
           </div>

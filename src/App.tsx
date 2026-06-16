@@ -1,72 +1,43 @@
-import { lazy } from 'react';
-// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import {
-  createBrowserRouter,
-  Outlet,
-  Route,
-  RouterProvider,
-  Routes,
-} from "react-router-dom";
-import Header from './components/Header';
-import Footer from './components/Footer';
-// import Home from './pages/Home';
+import { lazy, Suspense, type ReactElement } from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 // Lazy loading pages for better performance
 const Home = lazy(() => import('./pages/Home'));
-// const Projects = lazy(() => import('./pages/Projects'));
-// const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
+const About = lazy(() => import('./pages/About'));
 
-const routes = [
-  { path: "*", element: <Root /> },
-  { path: "/", element: <Home/>}
-]
-// 3️⃣ Router singleton created
-const router = createBrowserRouter(
-  routes,{
-  future:{
-    // v7_startTransition: true,
-    v7_relativeSplatPath: true,
-  }}
-);
-
-function Root() {
+function RouteFallback() {
   return (
-    <Routes>
-      <Route element={<Layout />} >
-        <Route path="/" element={<Home />} />
-        {/* <Route path="/projects" element={<Projects />} /> */}
-        {/* <Route path="/projects/:id" element={<ProjectDetail />} /> */}
-      </Route>
-    </Routes>          
+    <div className="flex items-center justify-center h-screen bg-matrix-black">
+      <p className="font-mono text-matrix-green text-glow-green animate-flicker">
+        &gt; cargando<span className="animate-pulse">_</span>
+      </p>
+    </div>
   );
 }
 
-function Layout() {
-  return (
-    <>
-    <div className="flex flex-col min-h-screen">
-      <Header />
-      <main className="flex-grow">
-        {/* <Suspense fallback={
-          <div className="flex items-center justify-center h-screen">
-            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-white"></div>
-          </div>
-        }> */}
-          <Outlet />
-        {/* </Suspense> */}
-      </main>
-      <Footer />
-    </div>
-  </>
-  )
+const withSuspense = (element: ReactElement) => (
+  <Suspense fallback={<RouteFallback />}>{element}</Suspense>
+);
 
-}
+const router = createBrowserRouter(
+  [
+    { path: '/', element: withSuspense(<Home />) },
+    { path: '/about', element: withSuspense(<About />) },
+  ],
+  {
+    future: {
+      v7_relativeSplatPath: true,
+    },
+  }
+);
 
 export default function App() {
-  return <RouterProvider 
-    router={router} 
-    future={{
-      v7_startTransition: true,
-    }}
-  />;
+  return (
+    <RouterProvider
+      router={router}
+      future={{
+        v7_startTransition: true,
+      }}
+    />
+  );
 }
