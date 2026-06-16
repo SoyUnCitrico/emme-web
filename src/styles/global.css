@@ -92,6 +92,34 @@ body::-webkit-scrollbar-thumb {
   text-shadow: 0 0 10px rgba(255, 140, 26, 0.7);
 }
 
+/* Glitch CRT — intensidad controlada por la variable --glitch (0..1) */
+.crt-glitch {
+  animation: crt-glitch 1.6s steps(1) infinite;
+}
+
+@keyframes crt-glitch {
+  0%, 88%, 100% {
+    transform: translate(0);
+    clip-path: inset(0);
+  }
+  90% {
+    transform: translate(calc(var(--glitch, 0) * -5px), 0);
+    clip-path: inset(20% 0 50% 0);
+  }
+  92% {
+    transform: translate(calc(var(--glitch, 0) * 5px), 0);
+    clip-path: inset(55% 0 18% 0);
+  }
+  94% {
+    transform: translate(calc(var(--glitch, 0) * -3px), 0);
+    clip-path: inset(70% 0 8% 0);
+  }
+  96% {
+    transform: translate(calc(var(--glitch, 0) * 3px), 0);
+    clip-path: inset(8% 0 75% 0);
+  }
+}
+
 /* Animaciones */
 .animate-float {
   animation: float 3s ease-in-out infinite;

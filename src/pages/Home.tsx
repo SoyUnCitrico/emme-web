@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { lazy, Suspense, useRef } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import HeroScene from '../components/Hero';
@@ -7,14 +7,8 @@ import Contact from '../components/Contact';
 import { motion, useInView } from 'framer-motion';
 import { useHashScroll } from '@/hooks/useHashScroll';
 
-const projects = [
-  { url: 'https://creamcake-web.vercel.app/', label: 'CreamCake' },
-  { url: 'https://synth-web-tau.vercel.app/', label: 'Synth React' },
-  { url: 'https://micel10.vercel.app/', label: 'MICEL_10' },
-  { url: 'https://fakestore-app-iota.vercel.app/', label: 'FakeStore' },
-  { url: 'https://soyuncitrico.github.io/p5-postales/loop/index.html', label: 'P5 Postales' },
-  { url: 'https://ccdtecno.github.io//', label: 'CCDTecno' },
-];
+// Sección pesada (canvas + animaciones): se separa en su propio chunk.
+const Projects = lazy(() => import('@/components/Projects'));
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 50 },
@@ -76,21 +70,13 @@ export default function Home() {
             animate={isProjectsInView ? 'visible' : 'hidden'}
             className="py-20 px-4 md:px-20 bg-matrix-panel/40"
           >
-            <h2 className="section-title mb-12">Proyectos</h2>
-            <div className="flex flex-col lg:flex-row items-center lg:justify-evenly gap-4 flex-wrap">
-              {projects.map((project) => (
-                <a key={project.url} href={project.url} target="_blank" rel="noopener noreferrer">
-                  <motion.button
-                    className="btn-primary mt-4 flex items-center"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    title={project.label}
-                  >
-                    {project.label}
-                  </motion.button>
-                </a>
-              ))}
-            </div>
+            <Suspense
+              fallback={
+                <p className="text-center text-matrix-dim animate-flicker">cargando señal…</p>
+              }
+            >
+              <Projects />
+            </Suspense>
           </motion.section>
 
           {/* Contact */}
