@@ -10,6 +10,7 @@ import {
   type Material,
 } from 'three';
 import { S3_BASE, sceneObjects, sceneConfig, type Transform } from './sceneObjects';
+import { useWireDissolve } from './useDissolve';
 
 // Models are normalized so their largest dimension ~= this many world units,
 // regardless of the source OBJ's arbitrary scale. Configurable from sceneConfig.
@@ -63,15 +64,16 @@ export function Model({ name, transform }: { name: string; transform: Transform 
   );
 }
 
-/** Many copies of one object via a single InstancedMesh (one draw call). */
-export function InstancedModel({ name, instances }: { name: string; instances: Transform[] }) {
+/**
+ * Loads a model and returns its first mesh's geometry baked, centered and
+ * normalized to TARGET_SIZE, plus its material — ready to share across instances
+ * (one upload, one draw call). Reused by both the static and the raining variants.
+ */
+export function useInstanceData(name: string): { geometry: BufferGeometry; material: Material } | null {
   const scene = useModelScene(name);
-
-  const data = useMemo(() => {
+  return useMemo(() => {
     const mesh = firstMesh(scene);
     if (!mesh) return null;
-    // Clone the geometry so we can bake the node transform, center and normalize
-    // it once — then every instance shares it (one upload, one draw call).
     const geometry = mesh.geometry.clone();
     mesh.updateWorldMatrix(true, false);
     geometry.applyMatrix4(mesh.matrixWorld);
@@ -85,11 +87,29 @@ export function InstancedModel({ name, instances }: { name: string; instances: T
     const material = Array.isArray(mesh.material) ? mesh.material[0] : mesh.material;
     return { geometry: geometry as BufferGeometry, material: material as Material };
   }, [scene]);
+}
 
+/** Many copies of one object via a single InstancedMesh (one draw call). */
+export function InstancedModel({
+  name,
+  instances,
+  dissolving,
+}: {
+  name: string;
+  instances: Transform[];
+  dissolving?: boolean;
+}) {
+  const data = useInstanceData(name);
+  // Al disolver, conmuta al material de malla verde que se desvanece.
+  const wireMat = useWireDissolve(!!dissolving);
   if (!data) return null;
 
   return (
-    <Instances geometry={data.geometry} material={data.material} limit={instances.length}>
+    <Instances
+      geometry={data.geometry}
+      material={dissolving ? wireMat : data.material}
+      limit={instances.length}
+    >
       {instances.map((t, i) => (
         <Instance
           key={i}

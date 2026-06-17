@@ -120,6 +120,50 @@ body::-webkit-scrollbar-thumb {
   }
 }
 
+/* Interferencia de TV (al detonar el hero): temblor cromático + tracking */
+.glitch-jitter-a {
+  animation: glitch-jitter-a 0.22s steps(2, end) infinite;
+}
+.glitch-jitter-b {
+  animation: glitch-jitter-b 0.3s steps(2, end) infinite;
+}
+.glitch-tear {
+  animation: glitch-tear 0.85s linear infinite;
+}
+
+@keyframes glitch-jitter-a {
+  0% {
+    transform: translateX(-4px);
+  }
+  50% {
+    transform: translateX(3px);
+  }
+  100% {
+    transform: translateX(-1px);
+  }
+}
+
+@keyframes glitch-jitter-b {
+  0% {
+    transform: translateX(3px);
+  }
+  50% {
+    transform: translateX(-4px);
+  }
+  100% {
+    transform: translateX(1px);
+  }
+}
+
+@keyframes glitch-tear {
+  0% {
+    transform: translateY(-40%);
+  }
+  100% {
+    transform: translateY(140%);
+  }
+}
+
 /* Animaciones */
 .animate-float {
   animation: float 3s ease-in-out infinite;

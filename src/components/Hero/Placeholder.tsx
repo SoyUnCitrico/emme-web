@@ -116,14 +116,14 @@ const FORMULAS: Array<(u: number, v: number, t: Vector3) => void> = [
   },
 ];
 
-function buildGeometry(variant: number): BufferGeometry {
+export function buildGeometry(variant: number): BufferGeometry {
   return parametricGeometry(FORMULAS[variant % FORMULAS.length], 64, 48);
 }
 
 // Old-TV palette. Order matches sceneObjects: the two unique slots (0,1) are
 // red + orange, the two instanced slots (2,3) are blue + green.
 const PALETTE = ['#ff3b3b', '#ff8c1a', '#3b7bff', '#37ff5e'];
-const tintFor = (variant: number) => PALETTE[variant % PALETTE.length];
+export const tintFor = (variant: number) => PALETTE[variant % PALETTE.length];
 
 // CRT / VHS shader — scanlines, static, channel split, flicker, tracking jumps.
 const VERT = /* glsl */ `

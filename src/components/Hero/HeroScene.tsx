@@ -5,6 +5,8 @@ import { motion } from 'framer-motion';
 import MatrixRain from './MatrixRain';
 import CursorParticles from './CursorParticles';
 import VhsOverlay from './VhsOverlay';
+import GlitchOverlay from './GlitchOverlay';
+import { dissolveConfig } from './sceneObjects';
 import { useAudio } from '@/hooks/useAudio';
 
 // Code-split the heavy 3D scene so the hero shell paints immediately.
@@ -23,6 +25,7 @@ function SceneLoader() {
 export default function HeroScene() {
   const [isMobile, setIsMobile] = useState(false);
   const [exploded, setExploded] = useState(false);
+  const [glitching, setGlitching] = useState(false);
   const { start } = useAudio();
 
   useEffect(() => {
@@ -31,6 +34,21 @@ export default function HeroScene() {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // Interferencia de TV mientras los objetos se disuelven; se quita cuando
+  // desaparecen (mismo tiempo que la disolución en SpaceScene).
+  useEffect(() => {
+    if (!exploded) {
+      setGlitching(false);
+      return;
+    }
+    setGlitching(true);
+    const id = window.setTimeout(
+      () => setGlitching(false),
+      dissolveConfig.holdMs + dissolveConfig.fadeMs
+    );
+    return () => window.clearTimeout(id);
+  }, [exploded]);
 
   return (
     <motion.div
@@ -119,6 +137,9 @@ export default function HeroScene() {
 
       {/* Old-TV / VHS overlay (static, scanlines, rolling band) */}
       <VhsOverlay />
+
+      {/* Interferencia intensa al detonar; se desmonta al desaparecer los objetos */}
+      {glitching && <GlitchOverlay />}
     </motion.div>
   );
 }
