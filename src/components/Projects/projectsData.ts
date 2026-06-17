@@ -47,41 +47,53 @@ export const projects: Project[] = [
   {
     url: 'https://creamcake-web.vercel.app/',
     label: 'CreamCake',
-    caption: 'Tienda dulce — e-commerce en React',
+    caption: 'Ternura radical, hyperpop desde México para el mundo.',
     scope: { freqX: 3, freqY: 2, phase: 0, tint: 'amber' },
+    asset: { type: 'image', src: 'https://amazons3-images-micel10.s3.us-east-2.amazonaws.com/images/creamcakeDemo.png' },
   },
   {
     url: 'https://synth-web-tau.vercel.app/',
-    label: 'Synth React',
+    label: 'MODULOR',
     caption: 'Sintetizador web interactivo',
     scope: { freqX: 5, freqY: 4, phase: Math.PI / 4, tint: 'green' },
+    asset: { type: 'image', src: 'https://amazons3-images-micel10.s3.us-east-2.amazonaws.com/images/modulor.png' },
   },
   {
     url: 'https://micel10.vercel.app/',
     label: 'MICEL_10',
-    caption: 'Portafolio experimental',
+    caption: 'Proytecto audiovisual experimental que explora la relacion de las maquinas con las personas y como crean posibilidades a futuro',
+    scope: { freqX: 2, freqY: 3, phase: Math.PI / 2, tint: 'green' },
+    // Placeholder para demostrar el modo "asset" (img/video). Reemplázalo
+    // por una captura real del proyecto en public/projects/.
+    asset: { type: 'image', src: 'https://amazons3-images-micel10.s3.us-east-2.amazonaws.com/images/micelio04.png' },
+  },
+  {
+    url: 'https://soundcloud.com/emme-697422005/sets/corridos-versionados?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing',
+    label: 'Corridos Versionados',
+    caption: 'Música tradicional mexicana con un giro moderno y melancólico.',
     scope: { freqX: 2, freqY: 3, phase: Math.PI / 2, tint: 'green' },
     // Placeholder para demostrar el modo "asset" (img/video). Reemplázalo
     // por una captura real del proyecto en public/projects/.
     asset: { type: 'image', src: '/images/PORTADA.png' },
   },
   {
-    url: 'https://fakestore-app-iota.vercel.app/',
-    label: 'FakeStore',
-    caption: 'Demo de tienda con FakeStore API',
-    scope: { freqX: 4, freqY: 5, phase: Math.PI / 3, tint: 'amber' },
-  },
-  {
     url: 'https://soyuncitrico.github.io/p5-postales/loop/index.html',
     label: 'P5 Postales',
     caption: 'Postales generativas en p5.js',
     scope: { freqX: 5, freqY: 3, phase: Math.PI / 6, tint: 'green' },
+    asset: { type: 'image', src: 'https://amazons3-images-micel10.s3.us-east-2.amazonaws.com/images/postales2.png' },
   },
   {
     url: 'https://ccdtecno.github.io//',
     label: 'CCDTecno',
     caption: 'Sitio institucional CCD Tecno',
     scope: { freqX: 3, freqY: 4, phase: Math.PI, tint: 'amber' },
+  },
+  {
+    url: 'https://fakestore-app-iota.vercel.app/',
+    label: 'FakeStore',
+    caption: 'Demo de tienda con FakeStore API',
+    scope: { freqX: 4, freqY: 5, phase: Math.PI / 3, tint: 'amber' },
   },
 ];
 
