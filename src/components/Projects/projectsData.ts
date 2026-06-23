@@ -53,10 +53,10 @@ export const projects: Project[] = [
   },
   {
     url: 'https://synth-web-tau.vercel.app/',
-    label: 'MODULOR',
-    caption: 'Sintetizador web interactivo',
-    scope: { freqX: 5, freqY: 4, phase: Math.PI / 4, tint: 'green' },
-    asset: { type: 'image', src: 'https://amazons3-images-micel10.s3.us-east-2.amazonaws.com/images/modulor.png' },
+    label: 'MAKWIL',
+    caption: '"Makwilxochitl" o "5 flor" es un sintetizador web interactivo',
+    scope: { freqX: 5, freqY: 4, phase: Math.PI / 4, tint: 'amber' },
+    asset: { type: 'image', src: 'https://amazons3-images-micel10.s3.us-east-2.amazonaws.com/images/makwil.png' },
   },
   {
     url: 'https://micel10.vercel.app/',
@@ -80,7 +80,7 @@ export const projects: Project[] = [
     url: 'https://soyuncitrico.github.io/p5-postales/loop/index.html',
     label: 'P5 Postales',
     caption: 'Postales generativas en p5.js',
-    scope: { freqX: 5, freqY: 3, phase: Math.PI / 6, tint: 'green' },
+    scope: { freqX: 5, freqY: 3, phase: Math.PI / 6, tint: 'amber' },
     asset: { type: 'image', src: 'https://amazons3-images-micel10.s3.us-east-2.amazonaws.com/images/postales2.png' },
   },
   {
