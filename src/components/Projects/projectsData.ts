@@ -52,7 +52,7 @@ export const projects: Project[] = [
     asset: { type: 'image', src: 'https://amazons3-images-micel10.s3.us-east-2.amazonaws.com/images/creamcakeDemo.png' },
   },
   {
-    url: 'https://synth-web-tau.vercel.app/',
+    url: 'https://www.makwil.xyz',
     label: 'MAKWIL',
     caption: '"Makwilxochitl" o "5 flor" es un sintetizador web interactivo',
     scope: { freqX: 5, freqY: 4, phase: Math.PI / 4, tint: 'amber' },
